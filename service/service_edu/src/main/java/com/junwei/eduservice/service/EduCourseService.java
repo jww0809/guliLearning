@@ -1,11 +1,15 @@
 package com.junwei.eduservice.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.junwei.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.junwei.eduservice.entity.chapter.CoursePublishVo;
 import com.junwei.eduservice.entity.vo.CourseInfoVo;
+import com.junwei.eduservice.entity.vo.frontvo.CourseBaseInfoVo;
+import com.junwei.eduservice.entity.vo.frontvo.CourseQueryVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -30,5 +34,8 @@ public interface EduCourseService extends IService<EduCourse> {
 
     boolean deleteCourseById(String courseId);
 
-
+    //1 （前端）课程 条件查询带分页
+    Map<String, Object> PageListWeb(Page<EduCourse> coursePage, CourseQueryVo courseQueryVo);
+    //2 (前端)  根据课程id 查询到课程的基本信息
+    CourseBaseInfoVo getCourseBaseInfo(String courseId);
 }

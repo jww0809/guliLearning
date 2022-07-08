@@ -1,10 +1,14 @@
 package com.junwei.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.junwei.eduservice.entity.EduChapter;
 import com.junwei.eduservice.entity.EduCourse;
 import com.junwei.eduservice.entity.EduCourseDescription;
 import com.junwei.eduservice.entity.chapter.CoursePublishVo;
 import com.junwei.eduservice.entity.vo.CourseInfoVo;
+import com.junwei.eduservice.entity.vo.frontvo.CourseBaseInfoVo;
+import com.junwei.eduservice.entity.vo.frontvo.CourseQueryVo;
 import com.junwei.eduservice.mapper.EduCourseMapper;
 import com.junwei.eduservice.service.EduChapterService;
 import com.junwei.eduservice.service.EduCourseDescriptionService;
@@ -14,6 +18,11 @@ import com.junwei.eduservice.service.EduVideoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -34,6 +43,65 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduVideoService videoService;
+
+
+    /**
+     * 2 (前端)根据课程id 查询到课程的基本信息
+     */
+    @Override
+    public CourseBaseInfoVo getCourseBaseInfo(String courseId) {
+        return baseMapper.getCourseBaseInfo(courseId);
+
+    }
+
+    /**
+     * 1 （前端）课程 条件查询带分页
+     * @param coursePage page对象
+     * @param courseQueryVo 查询条件
+     * @return
+     */
+    @Override
+    public Map<String, Object> PageListWeb(Page<EduCourse> coursePage, CourseQueryVo courseQueryVo) {
+        int[] ints = new int[2];
+
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+
+        //判断条件是否为空
+        if(!StringUtils.isEmpty(courseQueryVo.getSubjectParentId())){
+            wrapper.eq("subject_parent_id",courseQueryVo.getSubjectParentId());
+        }
+        if(!StringUtils.isEmpty(courseQueryVo.getSubjectId())){
+            wrapper.eq("subject_id",courseQueryVo.getSubjectId());
+        }
+        if(!StringUtils.isEmpty(courseQueryVo.getBuyCountSort())){
+            wrapper.orderByDesc("buy_count");
+        }
+        if(!StringUtils.isEmpty(courseQueryVo.getGmtCreateSort())){
+            wrapper.orderByDesc("gmt_create");
+        }
+        if(!StringUtils.isEmpty(courseQueryVo.getSubjectParentId())){
+            wrapper.orderByDesc("price");
+        }
+
+        baseMapper.selectPage(coursePage,wrapper);
+        List<EduCourse> records = coursePage.getRecords();
+        long current = coursePage.getCurrent();
+        long pages = coursePage.getPages();
+        long size = coursePage.getSize();
+        long total = coursePage.getTotal();
+        boolean hasNext = coursePage.hasNext();
+        boolean hasPrevious = coursePage.hasPrevious();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("items", records);
+        map.put("current", current);
+        map.put("pages", pages);
+        map.put("size", size);
+        map.put("total", total);
+        map.put("hasNext", hasNext);
+        map.put("hasPrevious", hasPrevious);
+        return map;
+    }
 
     @Override
     public String saveCourseInfo(CourseInfoVo courseInfoVo) {

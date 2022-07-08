@@ -3,6 +3,8 @@ package com.junwei.vod.controller;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.junwei.commonutils.R;
 import com.junwei.vod.service.VodService;
 import com.junwei.vod.utils.ConstantVodUtils;
@@ -57,6 +59,19 @@ public class VodController {
     public R deleteMultiVideo(@RequestParam("videoList") List<String> videoList){
         vodService.deleteMultiVideoAliyun(videoList);
         return R.ok().message("多个视频删除成功");
+    }
+
+    /**
+     * (前端)根据视频id获取视频的播放凭证，用于在前端课程详情部分播放视频
+     */
+    @GetMapping("getPlayAuth/{videoId}")
+    public R getPlayAuth(@PathVariable("videoId") String videoId) throws ClientException {
+        DefaultAcsClient client = InitVodClient.initVodClient(ConstantVodUtils.ACCESS_KEY_ID, ConstantVodUtils.ACCESS_KEY_SECRET);
+        GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
+        request.setVideoId(videoId);
+        GetVideoPlayAuthResponse response = client.getAcsResponse(request);
+        String playAuth = response.getPlayAuth();
+        return R.ok().data("playAuth",playAuth);
     }
 
 }

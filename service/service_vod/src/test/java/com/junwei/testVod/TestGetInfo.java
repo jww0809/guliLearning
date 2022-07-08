@@ -31,6 +31,7 @@ public class TestGetInfo {
         System.out.print("VideoBase.Title = " + response.getVideoBase().getTitle() + "\n");
     }
 
+    ////根据视频id获取视频播放凭证
     @Test
     public void testGetPlayAuth() throws ClientException {
         DefaultAcsClient client = AliyunVODSDKUtils.initVodClient(accessKeyId, accessKeySecret);

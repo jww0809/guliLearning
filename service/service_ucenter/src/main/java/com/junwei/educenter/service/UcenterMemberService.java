@@ -2,6 +2,8 @@ package com.junwei.educenter.service;
 
 import com.junwei.educenter.entity.UcenterMember;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.junwei.educenter.entity.vo.LoginVo;
+import com.junwei.educenter.entity.vo.RegisterVo;
 
 /**
  * <p>
@@ -13,4 +15,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UcenterMemberService extends IService<UcenterMember> {
 
+    String login(LoginVo loginVo);
+
+    void register(RegisterVo registerVo);
+
+    UcenterMember getLoginInfo(String memberId);
+
+    UcenterMember getOpenIdInfo(String openid);
 }

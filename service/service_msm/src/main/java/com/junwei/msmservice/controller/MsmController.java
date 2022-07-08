@@ -39,6 +39,7 @@ public class MsmController {
         param.put("code",code);
         boolean isSend = msmServie.send(phone,param);
         if(isSend){
+            //从redis中取出验证码数据
             redisTemplate.opsForValue().set(phone,code,5, TimeUnit.MINUTES);
             return R.ok();
         }

@@ -43,7 +43,7 @@ public class EduSubjectController {
 
     /**
      * 从数据库中查询到所有的课程信息，并封装成符合前端显示的格式
-     * @return
+     * @return ：所有的一级二级分类信息
      */
     @GetMapping("/getAllSubject")
     public R getAllSubject(){
