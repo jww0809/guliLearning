@@ -7,6 +7,7 @@ import com.junwei.educenter.entity.UcenterMember;
 import com.junwei.educenter.entity.vo.LoginVo;
 import com.junwei.educenter.entity.vo.RegisterVo;
 import com.junwei.educenter.service.UcenterMemberService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +50,16 @@ public class UcenterMemberController {
         return R.ok().data("userInfo",ucenterMember);
     }
 
+    /**
+     * 课程评论功能中，根据用户id获取用户的信息
+     */
+
+    @GetMapping("getInfoUser/{uid}")
+    public UcenterMember getInfoUser(@PathVariable("uid")String uid){
+        UcenterMember ucenterMember = memberService.getById(uid);
+        UcenterMember newMember = new UcenterMember();
+        BeanUtils.copyProperties(ucenterMember,newMember);
+        return newMember;
+    }
 }
 

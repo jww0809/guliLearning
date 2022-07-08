@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 //调用服务的名称，这个服务在另外的一个模块中
 @FeignClient(name = "service-vod",fallback = VodFileDegradeFeignClient.class)
+
+
 @Component
 /**
  * 这里定义一个被调用模块的接口
@@ -27,4 +29,6 @@ public interface VodClient {
      */
     @DeleteMapping("/eduvod/video/deleteBatchVideo")
     R deleteMultiVideo(@RequestParam("videoList") List<String> videoList);
+
+
 }
