@@ -9,6 +9,7 @@ import com.junwei.eduservice.client.UcenterClient;
 import com.junwei.eduservice.entity.EduComment;
 import com.junwei.eduservice.entity.UcenterMember;
 import com.junwei.eduservice.service.EduCommentService;
+import com.junwei.entity.vo.CenterMemberNew;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -78,9 +79,9 @@ public class EduCommentFrontController {
         comment.setMemberId(memberId);
 
         //调用ucenter模块
-        UcenterMember ucenterMember = ucenterClient.getInfoUser(memberId);
-        comment.setAvatar(ucenterMember.getAvatar());
-        comment.setNickname(ucenterMember.getNickname());
+        CenterMemberNew memberNew = ucenterClient.getInfoUser(memberId);
+        comment.setAvatar(memberNew.getAvatar());
+        comment.setNickname(memberNew.getNickname());
 
         commentService.save(comment);
         return R.ok().message("添加课程评论成功！");

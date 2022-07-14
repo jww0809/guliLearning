@@ -7,9 +7,9 @@ import com.junwei.educenter.entity.UcenterMember;
 import com.junwei.educenter.entity.vo.LoginVo;
 import com.junwei.educenter.entity.vo.RegisterVo;
 import com.junwei.educenter.service.UcenterMemberService;
+import com.junwei.entity.vo.CenterMemberNew;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,15 +51,28 @@ public class UcenterMemberController {
     }
 
     /**
-     * 课程评论功能中，根据用户id获取用户的信息
+     * 课程评论功能中，根据用户id获取用户的信息：
+     * 注意这里的返回类型，不是R类型，而是common_utils模块中定义的一个公共类，用于返回
+     * 生成订单也能共用该接口
      */
 
     @GetMapping("getInfoUser/{uid}")
-    public UcenterMember getInfoUser(@PathVariable("uid")String uid){
+    public CenterMemberNew getInfoUser(@PathVariable("uid") String uid){
         UcenterMember ucenterMember = memberService.getById(uid);
-        UcenterMember newMember = new UcenterMember();
-        BeanUtils.copyProperties(ucenterMember,newMember);
-        return newMember;
+        System.out.println("==========="+ucenterMember);
+        CenterMemberNew memberNew = new CenterMemberNew();
+        BeanUtils.copyProperties(ucenterMember,memberNew);
+        System.out.println("********"+memberNew);
+        return memberNew;
+    }
+
+    /**
+     * 查询某一天的注册人数
+     */
+    @GetMapping("getRegisterCount/{day}")
+    public R getRegisterCount(@PathVariable("day") String day){
+        Integer count = memberService.selectRegisterCount(day);
+        return R.ok().data("registerCount",count);
     }
 }
 

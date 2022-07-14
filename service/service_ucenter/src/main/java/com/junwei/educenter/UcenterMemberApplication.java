@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableDiscoveryClient
 @ComponentScan("com.junwei")
 @MapperScan("com.junwei.educenter.mapper")  //要用到mapper目录下的.xml文件
+
 public class UcenterMemberApplication {
     public static void main(String[] args) {
         SpringApplication.run(UcenterMemberApplication.class,args);

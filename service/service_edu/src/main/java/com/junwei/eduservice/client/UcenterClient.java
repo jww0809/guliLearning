@@ -1,7 +1,6 @@
 package com.junwei.eduservice.client;
 
-import com.junwei.commonutils.R;
-import com.junwei.eduservice.entity.UcenterMember;
+import com.junwei.entity.vo.CenterMemberNew;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UcenterClient {
 
     @GetMapping("/educenter/ucenter-member/getInfoUser/{uid}")
-    UcenterMember getInfoUser(@PathVariable("uid")String uid);
+    CenterMemberNew getInfoUser(@PathVariable("uid")String uid);
 
 }

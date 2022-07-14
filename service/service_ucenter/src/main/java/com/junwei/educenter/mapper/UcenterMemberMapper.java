@@ -2,6 +2,7 @@ package com.junwei.educenter.mapper;
 
 import com.junwei.educenter.entity.UcenterMember;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UcenterMemberMapper extends BaseMapper<UcenterMember> {
 
+    //这里有多个参数的时候，使用@param注解来对应取值#{date_day}，#{aa}
+    Integer selectRegisterCount(@Param("date_day") String day);
 }

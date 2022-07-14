@@ -21,5 +21,8 @@ public interface UcenterMemberService extends IService<UcenterMember> {
 
     UcenterMember getLoginInfo(String memberId);
 
+    //根据openid查询数据库中微信用户的信息
     UcenterMember getOpenIdInfo(String openid);
+
+    Integer selectRegisterCount(String day);
 }

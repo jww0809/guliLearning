@@ -3,10 +3,13 @@ package com.junwei.eduservice.controller;
 import com.junwei.commonutils.R;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 用于后台管理系统的登录
+ */
 @RestController
 @RequestMapping("/eduservice/user")
-//用于解决跨域问题
-@CrossOrigin
+//用于解决跨域问题：启动了api_gateway模块后就不需要@CrossOrigin
+//@CrossOrigin
 public class EduLoginController {
 
     //login

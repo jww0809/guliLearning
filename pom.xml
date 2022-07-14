@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>service</module>
-        <module>service_edu</module>
-        <module>service_edu</module>
         <module>commno</module>
+        <module>infrastructure</module>
+        <module>commno/untitled</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
