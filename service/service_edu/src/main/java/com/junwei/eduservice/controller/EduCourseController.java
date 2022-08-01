@@ -33,7 +33,7 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
  */
 @RestController
 @RequestMapping("/eduservice/course")
-@CrossOrigin
+//@CrossOrigin
 @Api(description = "课程管理")
 @Slf4j
 public class EduCourseController {

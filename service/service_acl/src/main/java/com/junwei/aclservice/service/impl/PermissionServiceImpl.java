@@ -219,7 +219,9 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         return permissionNode;
     }
 
-    //============递归删除菜单==================================
+    /**
+     * ==========递归删除菜单===============
+     */
 
     //给定一个id，删除他下面所有的菜单
     @Override
@@ -271,6 +273,13 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
             //封装到list集合
             rolePermissionList.add(rolePermission);
         }
+        //解决的bug：如果不是admin用户登录的话，左边菜单栏的权限列表无法显示，
+        // 大致原因：acl_role_permission数据库中缺少一条permission_id = 1的记录，即“全部数据”
+        RolePermission specPer = new RolePermission();
+        specPer.setPermissionId("1");
+        specPer.setRoleId(roleId);
+        rolePermissionList.add(specPer);
+
         //添加到角色菜单关系表
         rolePermissionService.saveBatch(rolePermissionList);
     }

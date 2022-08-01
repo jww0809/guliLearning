@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * <p>
- * 访问过滤器
+ * 授权过滤器
  * </p>
  *
  * @author qy
@@ -63,6 +63,11 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         chain.doFilter(req, res);
     }
 
+    /**
+     * 从header中取到token信息，然后得到用户名，接着根据用户名从redis中取出权限信息，给用户授权
+     * @param request
+     * @return
+     */
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         // token置于header里
         String token = request.getHeader("token");

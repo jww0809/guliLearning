@@ -19,7 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * <p>
- * Security配置类
+ * Security核心配置类
  * </p>
  *
  * @author qy
@@ -79,8 +79,10 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
+        //以下路径不走过滤器
         web.ignoring().antMatchers("/api/**",
-                "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**", "/*/**"
+                "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**"
                );
+        //     , "/*/**"
     }
 }

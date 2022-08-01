@@ -37,13 +37,13 @@ public class RolePermission implements Serializable {
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
     private Boolean isDeleted;
 
-
-    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+
     @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
 

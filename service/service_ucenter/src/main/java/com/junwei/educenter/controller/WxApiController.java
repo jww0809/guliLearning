@@ -19,7 +19,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 
 @Controller  //这里不能用RestController，因为这里不需要返回数据
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/api/ucenter/wx")
 public class WxApiController {
 
